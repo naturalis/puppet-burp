@@ -35,7 +35,23 @@
 #
 # Copyright 2014 Your name here, unless otherwise noted.
 #
-class burp {
 
+#https://launchpad.net/~bas-dikkenberg/+archive/burp-stable
+
+class burp (
+  $variables
+  ){
+
+  if $::osfamily != 'Debian' {
+    fail('This module only works on Debian or derivatives like Ubuntu')
+  }
+
+   apt::ppa { 'ppa:drizzle-developers/ppa': }
+
+
+  package { "burp-stable":
+	ensure => installed,
+	require => Class['apt::ppa']
+  }
 
 }
