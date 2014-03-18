@@ -39,24 +39,24 @@
 #https://launchpad.net/~bas-dikkenberg/+archive/burp-stable
 
 class burp (
- #$variables
+ $server=server
   ){
 
-  if $::osfamily != 'Debian' {
-    fail('This module only works on Debian or derivatives like Ubuntu')
+  if $::operatingsystem != 'Ubuntu' {
+    fail('This module only works on Ubuntu')
   }
 
   file { '/etc/apt/sources.list.d':
     ensure => 'directory',
   }
 
-  apt::ppa { 'ppa:bas-dikkenberg/burp-stable':
+  apt::ppa { 'ppa:bas-dikkenberg/burp-latest':
     require => File['/etc/apt/sources.list.d']
   }
 
   package { 'burp':
-    ensure => latest,
-    require => Apt::Ppa['ppa:bas-dikkenberg/burp-stable']
+    ensure => '1.4.10-1ubuntu2',
+    require => Apt::Ppa['ppa:bas-dikkenberg/burp-latest']
   }
 
 }
