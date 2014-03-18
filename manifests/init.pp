@@ -46,8 +46,7 @@ class burp (
  $keep = "60",
  $waittime = "20",
  $starttime = "Mon,Tue,Wed,Thu,Fri,Sat,Sun,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23",
- 
-  ){
+ ){
 
   if $::operatingsystem != 'Ubuntu' {
     fail('This module only works on Ubuntu')
@@ -67,12 +66,17 @@ class burp (
     require => Apt::Ppa['ppa:bas-dikkenberg/burp-latest']
   }
 
-#Create files burp-server.conf
+#Create file burp-server.conf
   file { '/etc/burp/burp-server.conf':
     ensure  => present,
     mode    => '600',
     content => template("burp/burp-server.conf.erb"),
     require => Package['burp']
+  }
+
+  service { 'burp':
+    ensure  => 'running',
+    require => File['/etc/burp/burp-server.conf'] 
   }
 
 }
