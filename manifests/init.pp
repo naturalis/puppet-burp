@@ -74,6 +74,7 @@ class burp (
     require => Package['burp']
   }
 
+#Start service
   service { 'burp':
     ensure  => 'running',
     require => File['/etc/burp/burp-server.conf'] 
