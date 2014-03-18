@@ -39,15 +39,21 @@
 #https://launchpad.net/~bas-dikkenberg/+archive/burp-stable
 
 class burp (
- $server=server
+ $server = "server",
+ $directory = "/mnt/backup/burpdata",
+ $max_children = "25",
+ $max_status_children = "25",
+ $keep = "60",
+ $waittime = "20",
+ $starttime = "Mon,Tue,Wed,Thu,Fri,Sat,Sun,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23",
+ 
   ){
 
   if $::operatingsystem != 'Ubuntu' {
     fail('This module only works on Ubuntu')
   }
 
-#Install package
-
+#Install package burp
   file { '/etc/apt/sources.list.d':
     ensure => 'directory',
   }
@@ -61,8 +67,7 @@ class burp (
     require => Apt::Ppa['ppa:bas-dikkenberg/burp-latest']
   }
 
-#Create files
-
+#Create files burp-server.conf
   file { '/etc/burp/burp-server.conf':
     ensure  => present,
     mode    => '600',
