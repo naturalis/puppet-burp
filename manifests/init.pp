@@ -46,6 +46,8 @@ class burp (
     fail('This module only works on Ubuntu')
   }
 
+#Install package
+
   file { '/etc/apt/sources.list.d':
     ensure => 'directory',
   }
@@ -57,6 +59,15 @@ class burp (
   package { 'burp':
     ensure => '1.4.10-1ubuntu2',
     require => Apt::Ppa['ppa:bas-dikkenberg/burp-latest']
+  }
+
+#Create files
+
+  file { '/etc/burp/burp-server.conf':
+    ensure  => present,
+    mode    => '600',
+    content => template("burp/burp-server.conf.erb"),
+    require => Package['burp']
   }
 
 }
