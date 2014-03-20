@@ -40,7 +40,7 @@
 
 class burp (
 # general settings
-  $mode                = "server",
+  $mode                = server,
   
 # server settings for /etc/burp-server.conf 
   $directory           = "/mnt/backup/burpdata",
@@ -52,7 +52,7 @@ class burp (
  
 # server settings for client config files in /etc/clientconfdir
   $clientconf_hash     = {'NNMS00' => { $clientname        = $name,
-                                        $includes          = undef,
+                                        $includes          = "C:/",
                                         $excludes          = "D:/$RECYCLE.BIN/",
                                         $options           = undef,
                                         $password          = undef,
@@ -80,7 +80,8 @@ class burp (
 
       # Fill /etc/burp/clientconfdir
       create_resources('burp::clientconf', $clientconf_hash)
-        
+    }
+
     client: {
       if $installpackage {
       class { 'burp::installpackage' }
