@@ -64,7 +64,7 @@ class burp (
 
 ) {
   
-include burp::installpackage
+include installpackage
 
   case $::mode {
     server: {
