@@ -1,0 +1,18 @@
+password =  <%= @burp::clientconfig::password %>     
+
+# More configuration files can be read, using syntax like the following
+# (without the leading '# ').
+
+# includes
+<% [@burp::clientconfig::includes].flatten.each do |include| -%> include=<%= include %><% end -%> 
+
+# excludes
+<% [@burp::clientconfig::exclude].flatten.each do |exclude| -%> exclude=<%= exclude %><% end -%> 
+
+# extra options
+<% [@burp::clientconfig::options].flatten.each do |option| -%> <%= option %><% end -%> 
+
+
+
+ # include common config
+. incexc/common
