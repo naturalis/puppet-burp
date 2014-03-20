@@ -41,7 +41,10 @@
 class burp (
 # general settings
   $mode                = server,
-  
+
+# client settings  
+  $installpackage = true,
+
 # server settings for /etc/burp-server.conf 
   $directory           = "/mnt/backup/burpdata",
   $max_children        = "25",
@@ -58,11 +61,10 @@ class burp (
                                         password   => undef,
                                       }
                          }
- # client settings
-  $installpackage = true,
-  ) {
+
+) {
   
-  
+include burp::installpackage
 
   case $::mode {
     server: {
@@ -85,10 +87,8 @@ class burp (
     }
 
     client: {
-      if $installpackage {
-      class { 'burp::installpackage' }
-      }
+      notice { "client config":}
     }
   }
-
 }
+
