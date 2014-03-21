@@ -11,11 +11,6 @@ define burp::clientconf (
 	$password   = undef,
   ) {
 
-  #file { '/etc/burp/clientconfdir':
-  #  ensure     => 'directory',
-  #  require    => Package['burp']
-  #}
-
   file { "/etc/burp/clientconfdir/${title}":
     mode    => "600",
     content => template('burp/clientconf.erb'),

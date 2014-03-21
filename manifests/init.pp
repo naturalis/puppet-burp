@@ -54,44 +54,57 @@ class burp (
   $starttime           = "Mon,Tue,Wed,Thu,Fri,Sat,Sun,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23",
  
 # server settings for client config files in /etc/clientconfdir
-  $clientconf_hash     = { 'NNMS00' => { includes => 'C:/',
+  $clientconf_hash     = { 'nnms00' => { includes => ['C:/', 'D:/'],
                                          excludes => 'D:/$RECYCLE.BIN/',
-                                         options  => '#test',
-                                         password => 'password',
+                                         options  => 'options-nnms00',
+                                         password => 'password-nnms00',
+                                       },
+                         
+                           'nnms01' => { includes => 'C:/',
+                                         excludes => 'D:/$RECYCLE.BIN/',
+                                         options  => 'options-nnms01',
+                                         password => 'password-nnms01',
                                        },
                          },
 
+
 ) {
   
-include package
+include burppackage
 
-  if $mode == "server" {
+if $mode == "server" {
 
-    file { '/etc/burp/burp-server.conf':
+  file { '/etc/burp/clientconfdir':
+    ensure     => 'directory',
+    require    => Package['burp']
+  }
+
+  file { '/etc/burp/burp-server.conf':
+    ensure  => present,
+    mode    => '600',
+    content => template("burp/burp-server.conf.erb"),
+    require => Package['burp']
+  }
+
+  service { 'burp':
+    ensure  => 'running',
+    require => File['/etc/burp/burp-server.conf'] 
+  }
+
+  create_resources('burp::clientconf', $clientconf_hash)
+
+
+} elsif $mode == "client" {
+
+    file { '/etc/burp/burp.conf':
       ensure  => present,
       mode    => '600',
-      content => template("burp/burp-server.conf.erb"),
+      content => template("burp/burp.conf.erb"),
       require => Package['burp']
     }
 
-    service { 'burp':
-      ensure  => 'running',
-      require => File['/etc/burp/burp-server.conf'] 
-    }
+  } else {
 
-    create_resources('burp::clientconf', $clientconf_hash)
-
-  } elsif $mode == "client" {
-
-      file { '/etc/burp/burp.conf':
-        ensure  => present,
-        mode    => '600',
-        content => template("burp/burp.conf.erb"),
-        require => Package['burp']
-      }
-    }
-
-    else {
     fail("unknown mode")
   }
 }
