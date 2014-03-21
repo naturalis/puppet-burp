@@ -1,7 +1,7 @@
 # Class: installpackage
 #
 #
-class burp::installpackage {
+class package {
 
   if $::operatingsystem != 'Ubuntu' {
     fail('This module only works on Ubuntu')
