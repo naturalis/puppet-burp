@@ -29,14 +29,12 @@
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Author Name rudi.broekhuizen@naturalis.nl
 #
 # === Copyright
 #
 # Copyright 2014 Your name here, unless otherwise noted.
 #
-
-#https://launchpad.net/~bas-dikkenberg/+archive/burp-stable
 
 class burp (
 # general settings
