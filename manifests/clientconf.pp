@@ -4,7 +4,7 @@
 #
 
 define burp::clientconf (
-  $includes = undef,
+        $includes = undef,
 	$excludes = undef,
 	$options  = undef,
 	$password = undef,
