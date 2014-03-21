@@ -1,9 +1,22 @@
+password = <%= @password %> 
 
-#password =  <%= @password %> 
-<%= @options %>
-
+# More configuration files can be read, using syntax like the following
+# (without the leading '# ').
 
 # includes
 <% [@includes].flatten.each do |include| -%>
 include=<%= include %>
 <% end -%>
+
+# excludes
+<% [@excludes].flatten.each do |exclude| -%>
+exclude=<%= exclude %>
+<% end -%>
+
+# extra options
+<% [@options].flatten.each do |option| -%>
+<%= option %>
+<% end -%> 
+
+# include common config
+. incexc/common

@@ -57,13 +57,13 @@ class burp (
   $clientconf_hash     = { 'nnms00' => { includes => ['C:/', 'D:/'],
                                          excludes => 'D:/$RECYCLE.BIN/',
                                          options  => 'options-nnms00',
-                                         password => 'password-nnms00',
+                                         password => 'password',
                                        },
                          
-                           'nnms01' => { includes => 'C:/',
+                           'nnms01' => { includes => ['C:/', 'D:/'],
                                          excludes => 'D:/$RECYCLE.BIN/',
                                          options  => 'options-nnms01',
-                                         password => 'password-nnms01',
+                                         password => 'password',
                                        },
                          },
 
