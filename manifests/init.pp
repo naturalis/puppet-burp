@@ -41,7 +41,7 @@ class burp (
   $mode                = "server",
 
 # client: settings  
-  $installpackage = true,
+  $server = "127.0.0.1",
 
 # server: settings for /etc/burp-server.conf 
   $directory           = "/mnt/backup/burpdata",

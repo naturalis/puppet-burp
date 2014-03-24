@@ -7,13 +7,6 @@ class burp::server (
   
 ) {
 
-  $directory           = $::directory
-  $max_children        = $::max_children
-  $max_status_children = $::max_status_children
-  $keep                = $::keep
-  $waittime            = $::waittime
-  $starttime           = $::starttime
-  
   file { '/etc/burp/clientconfdir':
     ensure     => 'directory',
     require    => Package['burp']
