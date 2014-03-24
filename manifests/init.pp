@@ -40,10 +40,10 @@ class burp (
 # general settings
   $mode                = "server",
 
-# client settings  
+# client: settings  
   $installpackage = true,
 
-# server settings for /etc/burp-server.conf 
+# server: settings for /etc/burp-server.conf 
   $directory           = "/mnt/backup/burpdata",
   $max_children        = "25",
   $max_status_children = "25",
@@ -51,7 +51,7 @@ class burp (
   $waittime            = "20",
   $starttime           = "Mon,Tue,Wed,Thu,Fri,Sat,Sun,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23",
  
-# server settings for client config files in /etc/clientconfdir
+# server: settings for client config files in /etc/clientconfdir
   $clientconf_hash     = { 'nnms00' => { includes => ['C:/', 'D:/'],
                                          excludes => 'D:/$RECYCLE.BIN/',
                                          options  => 'options-nnms00',
@@ -64,45 +64,20 @@ class burp (
                                          password => 'password',
                                        },
                          },
-
-
 ) {
   
-include burppackage
+include burp::package
 
-if $mode == "server" {
-
-  file { '/etc/burp/clientconfdir':
-    ensure     => 'directory',
-    require    => Package['burp']
-  }
-
-  file { '/etc/burp/burp-server.conf':
-    ensure  => present,
-    mode    => '600',
-    content => template("burp/burp-server.conf.erb"),
-    require => Package['burp']
-  }
-
-  service { 'burp':
-    ensure  => 'running',
-    require => File['/etc/burp/burp-server.conf'] 
-  }
-
-  create_resources('burp::clientconf', $clientconf_hash)
-
-
-} elsif $mode == "client" {
-
-    file { '/etc/burp/burp.conf':
-      ensure  => present,
-      mode    => '600',
-      content => template("burp/burp.conf.erb"),
-      require => Package['burp']
+  if $mode == "server" {
+    class {'burp::server':
+      clientconf_hash => $clientconf_hash, 
     }
+      
+  } elsif $mode == "client" {
+    include burp::client
 
-  } else {
-
-    fail("unknown mode")
+    } else {
+      fail("unknown mode")
   }
+
 }

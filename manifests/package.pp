@@ -1,11 +1,11 @@
-# Class: burppackage
+# Class: burp::package
 #
 # PPA from https://launchpad.net/~bas-dikkenberg/+archive/burp-latest
 
-class burppackage {
+class burp::package {
 
   if $::operatingsystem != 'Ubuntu' {
-    fail('This module only works on Ubuntu')
+    fail('Operatingsystem not supported yet')
   }
 
   file { '/etc/apt/sources.list.d':
