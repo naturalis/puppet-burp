@@ -18,12 +18,3 @@ class burp::client {
   }
 
 }
-
-
-
-host { 'develop-rudi.openstacklocal':
-  ensure       => 'present',
-    host_aliases => ['develop-rudi', 'localhost'],
-      ip           => '127.0.0.1',
-        target       => '/etc/hosts',
-	i
