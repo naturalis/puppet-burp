@@ -38,13 +38,13 @@
 
 class burp (
 # general settings
-  $mode             = "server",
+  $mode             = "client",
   $ssl_key_password = "password",
 
 # client: settings for /etc/burp/burp.conf
   $server             = "127.0.0.1",
   $client_password    = "password",
-  $cname              = "cname",
+  $cname              = $hostname,
   $server_can_restore = "1",
 
 # server: settings for /etc/burp-server.conf 
