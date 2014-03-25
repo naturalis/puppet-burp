@@ -38,10 +38,14 @@
 
 class burp (
 # general settings
-  $mode                = "server",
+  $mode             = "server",
+  $ssl_key_password = "password",
 
-# client: settings  
-  $server = "127.0.0.1",
+# client: settings for /etc/burp/burp.conf
+  $server             = "127.0.0.1",
+  $client_password    = "password",
+  $cname              = "cname",
+  $server_can_restore = "1",
 
 # server: settings for /etc/burp-server.conf 
   $directory           = "/mnt/backup/burpdata",
@@ -74,10 +78,11 @@ include burp::package
     }
       
   } elsif $mode == "client" {
-    include burp::client
+      class {'burp::client':
+      }
 
     } else {
-      fail("unknown mode")
+        fail("unknown mode")
   }
 
 }

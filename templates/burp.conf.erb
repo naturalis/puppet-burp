@@ -3,7 +3,7 @@
 mode = client
 port = 4971
 server = <%= @server %>
-password = <%= @password %>
+password = <%= @client_password %>
 cname = <%= @cname %>
 # Choose the protocol to use.
 # 0 to decide automatically, 1 to force burp1 mode, 2 to force burp2 mode.
@@ -20,7 +20,7 @@ progress_counter = 1
 # To never autoupgrade, leave it commented out.
 # autoupgrade_dir=/etc/burp/autoupgrade/client
 # OS path component for the autoupgrade directory on the server.
-# autoupgrade_os=<%= @password %>
+# autoupgrade_os=test_os
 
 # Set server_can_restore to 0 if you do not want the server to be able to
 # initiate a restore.
