@@ -3,8 +3,8 @@
 mode = client
 port = 4971
 server = <%= @server %>
-password = abcdefgh
-cname = testclient
+password = <%= @password %>
+cname = <%= @cname %>
 # Choose the protocol to use.
 # 0 to decide automatically, 1 to force burp1 mode, 2 to force burp2 mode.
 # protocol = 0
@@ -20,11 +20,11 @@ progress_counter = 1
 # To never autoupgrade, leave it commented out.
 # autoupgrade_dir=/etc/burp/autoupgrade/client
 # OS path component for the autoupgrade directory on the server.
-# autoupgrade_os=test_os
+# autoupgrade_os=<%= @password %>
 
 # Set server_can_restore to 0 if you do not want the server to be able to
 # initiate a restore.
-server_can_restore = 0
+server_can_restore = <%= @server_can_restore %>
 
 # Set an encryption password if you do not trust the server with your data.
 # Note that this will mean that network deltas will not be possible. Each time
@@ -60,7 +60,7 @@ ssl_key = /etc/burp/ssl_cert-client.key
 #ssl_ciphers = 
 
 # SSL key password
-ssl_key_password = password
+ssl_key_password = <%= @ssl_key_password %>
 
 # Common name in the certificate that the server gives us
 ssl_peer_cn = burpserver
