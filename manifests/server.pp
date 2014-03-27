@@ -24,6 +24,8 @@ class burp::server (
     require => File['/etc/burp/burp-server.conf'] 
   }
 
-  create_resources('burp::clientconf', $clientconf_hash)
+  File <<| tag == 'burpclient' |>>
+
+create_resources('burp::clientconf', $clientconf_hash)
 
 }

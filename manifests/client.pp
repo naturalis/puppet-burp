@@ -17,4 +17,13 @@ class burp::client {
     require => Package['burp']
   }
 
+  @@file { "/etc/burp/clientconfdir/${::hostname}":
+    mode    => "600",
+    content => template('burp/clientconf.erb'),
+    require => File['/etc/burp/clientconfdir'],
+    tag     => 'burpclient',
+  }
+
+
+
 }
