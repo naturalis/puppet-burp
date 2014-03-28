@@ -47,6 +47,12 @@ class burp (
   $cname              = $fqdn,
   $server_can_restore = "1",
 
+# client: create client config files for linux clients in /etc/clientconfdir
+  $includes = "/home",
+  $excludes = "/tmp",
+  $options  = "",
+  $password = "password",
+
 # server: settings for /etc/burp-server.conf 
   $directory           = "/mnt/backup/burpdata",
   $max_children        = "25",
@@ -57,14 +63,14 @@ class burp (
  
 # server: settings for client config files in /etc/clientconfdir
   $clientconf_hash     = { 'servername-01.domain' => { includes => ['C:/', 'D:/'],
-                                                       excludes => 'D:/$RECYCLE.BIN/',
-                                                       options  => 'options-nnms00',
+                                                       excludes => ['D:/$RECYCLE.BIN/'],
+                                                       options  => ['options-nnms00'],
                                                        password => 'password',
                                                      },
                          
                            'servername-02.domain' => { includes => ['C:/', 'D:/'],
-                                                       excludes => 'D:/$RECYCLE.BIN/',
-                                                       options  => 'options-nnms01',
+                                                       excludes => ['D:/$RECYCLE.BIN/'],
+                                                       options  => ['options-nnms01'],
                                                        password => 'password',
                                                      },
                          },

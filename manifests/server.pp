@@ -19,13 +19,16 @@ class burp::server (
     require => Package['burp']
   }
 
+  File <<| tag == 'burpclient' |>> {
+  require => File['/etc/burp/clientconfdir']
+  }
+
   service { 'burp':
     ensure  => 'running',
     require => File['/etc/burp/burp-server.conf'] 
   }
 
-  File <<| tag == 'burpclient' |>>
+  create_resources('burp::clientconf', $clientconf_hash)
 
-create_resources('burp::clientconf', $clientconf_hash)
 
 }
