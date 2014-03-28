@@ -19,7 +19,7 @@ class burp::server (
     require => Package['burp']
   }
 
-  File <<| tag == 'burpclient' |>> {
+  File <<| tag == 'burpclient-0f3fa71c-0d38-4249-aecb-52efa966627c' |>> {
   require => File['/etc/burp/clientconfdir']
   }
 

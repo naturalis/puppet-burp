@@ -64,13 +64,13 @@ class burp (
 # server: create client config files in /etc/clientconfdir for Windows clients
   $clientconf_hash     = { 'servername-01.domain' => { includes => ['C:/', 'D:/'],
                                                        excludes => ['D:/$RECYCLE.BIN/'],
-                                                       options  => ['options-nnms00'],
+                                                       options  => ['options'],
                                                        password => 'password',
                                                      },
                          
                            'servername-02.domain' => { includes => ['C:/', 'D:/'],
                                                        excludes => ['D:/$RECYCLE.BIN/'],
-                                                       options  => ['options-nnms01'],
+                                                       options  => ['options'],
                                                        password => 'password',
                                                      },
                          },

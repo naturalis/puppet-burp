@@ -20,7 +20,7 @@ class burp::client {
   @@file { "/etc/burp/clientconfdir/${::hostname}":
     mode    => "600",
     content => template('burp/clientconf.erb'),
-    tag     => 'burpclient',
+    tag     => 'burpclient-0f3fa71c-0d38-4249-aecb-52efa966627c',
   }
 
 
