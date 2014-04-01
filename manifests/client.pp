@@ -2,12 +2,12 @@
 #
 #
 class burp::client (
-  $includes         = undef,
-  $excludes         = undef,
-  $cname            = undef,
-  $options          = undef,
-  $password         = undef,
-  $client_password  = undef,
+  #$includes         = undef,
+  #$excludes         = undef,
+  #$cname            = undef,
+  #$options          = undef,
+  #$password         = undef,
+  #$client_password  = undef,
   $cron             = undef,
 ){
 
@@ -33,8 +33,6 @@ class burp::client (
       minute  => [$randomcron,20+$randomcron, 40+$randomcron]
     }
   }
-
-#  @@file { "/etc/burp/clientconfdir/${::hostname}":
 
   @@file { "/etc/burp/clientconfdir/${cname}":
     mode    => "600",
