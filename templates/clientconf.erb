@@ -9,8 +9,10 @@ include=<%= include %>
 <% end -%>
 
 # excludes
+<% if @excludes != "" -%>
 <% [@excludes].flatten.each do |exclude| -%>
 exclude=<%= exclude %>
+<% end -%>
 <% end -%>
 
 # extra options

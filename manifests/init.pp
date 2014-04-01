@@ -52,6 +52,7 @@ class burp (
   $excludes = "/tmp",
   $options  = "",
   $password = "password",
+  $cron     = true,
 
 # server: settings for /etc/burp-server.conf 
   $directory           = "/mnt/backup/burpdata",
@@ -60,7 +61,7 @@ class burp (
   $keep                = "60",
   $waittime            = "20",
   $starttime           = "Mon,Tue,Wed,Thu,Fri,Sat,Sun,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23",
- 
+  $common_clientconfig = ['working_dir_recovery_method=resume'],
 # server: create client config files in /etc/clientconfdir for Windows clients
   $clientconf_hash     = { 'servername-01.domain' => { includes => ['C:/', 'D:/'],
                                                        excludes => ['D:/$RECYCLE.BIN/'],
@@ -80,11 +81,18 @@ include burp::package
 
   if $mode == "server" {
     class {'burp::server':
-      clientconf_hash => $clientconf_hash, 
+      clientconf_hash       => $clientconf_hash, 
+      common_clientconfig   => $common_clientconfig,
     }
       
   } elsif $mode == "client" {
       class {'burp::client':
+        includes        => $includes,
+        excludes        => $excludes,
+        options         => $options,
+        password        => $password,
+        client_password => $client_password,
+        cname           => $cname
       }
 
     } else {

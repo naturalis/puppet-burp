@@ -2,8 +2,8 @@
 #
 #
 class burp::server (
-  
-  $clientconf_hash = clientconf_hash,
+  $common_clientconfig  = undef,
+  $clientconf_hash      = undef,
   
 ) {
 
@@ -18,6 +18,21 @@ class burp::server (
     content => template("burp/burp-server.conf.erb"),
     require => Package['burp']
   }
+
+  file { '/etc/default/burp':
+    ensure  => present,
+    mode    => '600',
+    content => template("burp/default.erb"),
+    require => Package['burp']
+  }
+
+  file { '/etc/burp/clientconfdir/incexc/common':
+    ensure  => present,
+    mode    => '600',
+    content => template("burp/common.erb"),
+    require => File['/etc/burp/clientconfdir']
+  }
+
 
   File <<| tag == 'burpclient-0f3fa71c-0d38-4249-aecb-52efa966627c' |>> {
   require => File['/etc/burp/clientconfdir']
