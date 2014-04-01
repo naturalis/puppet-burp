@@ -2,12 +2,12 @@
 #
 #
 class burp::client (
-  #$includes         = undef,
-  #$excludes         = undef,
-  #$cname            = undef,
-  #$options          = undef,
-  #$password         = undef,
-  #$client_password  = undef,
+  $includes         = undef,
+  $excludes         = undef,
+  $cname            = undef,
+  $options          = undef,
+  $password         = undef,
+  $client_password  = undef,
   $cron             = undef,
 ){
 
