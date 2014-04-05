@@ -1,0 +1,14 @@
+# If you add at least one 'include=' line, the server will override the
+# rest of the client options below, which define exactly what to backup.
+# Setting any of the other options here will then also take effect on the
+# client.
+# (This file needs to be included in the clientconfdir file for the client,
+# using the '. path/to/this/file' syntax. Alternatively, these options can
+# be added to the clientconfdir file directly).
+# 
+# This File is created by puppet.
+#
+
+<% [@common_clientconfig].flatten.each do |configoption| -%>
+<%=configoption %>
+<% end -%>

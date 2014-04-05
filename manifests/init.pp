@@ -38,7 +38,7 @@
 
 class burp (
 # general settings
-  $mode             = "client",
+  $mode             = "server",
   $ssl_key_password = "password",
 
 # client: settings for /etc/burp/burp.conf
@@ -92,7 +92,8 @@ include burp::package
         options         => $options,
         password        => $password,
         client_password => $client_password,
-        cname           => $cname
+        cname           => $cname,
+        cron            => $cron
       }
 
     } else {

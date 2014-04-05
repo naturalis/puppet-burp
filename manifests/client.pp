@@ -24,7 +24,7 @@ class burp::client (
     content => template("burp/burp.conf.erb"),
     require => Package['burp']
   }
-  
+
   if ($cron == true){
     $randomcron = fqdn_rand(19)
     cron { 'initiate backup':
