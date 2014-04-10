@@ -2,7 +2,7 @@
 #
 # PPA from https://launchpad.net/~bas-dikkenberg/+archive/burp-latest
 
-class burp::package {
+class burp::package{
 
   if $::operatingsystem != 'Ubuntu' {
     fail('Operatingsystem not supported yet')
@@ -16,8 +16,14 @@ class burp::package {
     require => File['/etc/apt/sources.list.d']
   }
 
+  if ($lsbdistrelease == "13.04") or ($lsbdistrelease == "13.10") {
+    $packagename = '1.4.10-1ubuntu1'
+  } else {
+    $packagename = '1.4.10-1ubuntu2'
+  }
+  
   package { 'burp':
-    ensure => '1.4.10-1ubuntu2',
+    ensure => $packagename,
     require => Apt::Ppa['ppa:bas-dikkenberg/burp-latest']
   }
 }
