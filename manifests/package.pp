@@ -8,10 +8,11 @@ class burp::package{
     fail('Operatingsystem not supported yet')
   }
 
-  file { '/etc/apt/sources.list.d':
-    ensure => 'directory',
-  }
-
+  ensure_resource('file', '/etc/apt/sources.list', {
+      'ensure' => 'directory'
+    }
+  )
+  
   apt::ppa { 'ppa:bas-dikkenberg/burp-latest':
     require => File['/etc/apt/sources.list.d']
   }
