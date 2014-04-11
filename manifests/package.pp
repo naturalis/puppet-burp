@@ -8,7 +8,7 @@ class burp::package{
     fail('Operatingsystem not supported yet')
   }
 
-  ensure_resource('file', '/etc/apt/sources.list', {
+  ensure_resource('file', '/etc/apt/sources.list.d', {
       'ensure' => 'directory'
     }
   )
