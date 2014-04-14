@@ -18,9 +18,9 @@ class burp::package{
   }
 
   if ($lsbdistrelease == "13.04") or ($lsbdistrelease == "13.10") {
-    $packagename = '1.4.10-1ubuntu1'
+    $packagename = '1.4.10-2ubuntu1'
   } else {
-    $packagename = '1.4.10-1ubuntu2'
+    $packagename = '1.4.10-2ubuntu2'
   }
   
   package { 'burp':
