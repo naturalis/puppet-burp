@@ -17,10 +17,10 @@ class burp::package{
     require => File['/etc/apt/sources.list.d']
   }
 
-  if ($lsbdistrelease == "13.04") or ($lsbdistrelease == "13.10") {
-    $packagename = '1.4.10-2ubuntu1'
+  if ($lsbdistrelease == "13.04") or ($lsbdistrelease == "14.04") {
+    $packagename = '1.4.12-1ubuntu5'
   } else {
-    $packagename = '1.4.10-2ubuntu2'
+    $packagename = '1.4.12-1ubuntu2'
   }
   
   package { 'burp':
