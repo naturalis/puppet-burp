@@ -9,7 +9,7 @@ include=<%= include %>
 <% end -%>
 
 # excludes
-<% if @excludes != "" -%>
+<% if !@excludes.nil? -%>
 <% [@excludes].flatten.each do |exclude| -%>
 exclude=<%= exclude %>
 <% end -%>
