@@ -24,7 +24,7 @@ autoupgrade_os=<%= @operatingsystem %>_<%= @operatingsystemrelease %>
 
 # Set server_can_restore to 0 if you do not want the server to be able to
 # initiate a restore.
-server_can_restore = <%= scope['server_can_restore'] %>
+server_can_restore = <%= scope['burp::server_can_restore'] %>
 
 # Set an encryption password if you do not trust the server with your data.
 # Note that this will mean that network deltas will not be possible. Each time
