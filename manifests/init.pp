@@ -44,7 +44,7 @@ class burp (
 # client: settings for /etc/burp/burp.conf
   $server             = "127.0.0.1",
   $client_password    = "password",
-  $cname              = $fqdn,
+  $cname              = $hostname,
   $server_can_restore = "1",
 
 # client: create client config files in /etc/clientconfdir for Linux clients
@@ -54,7 +54,7 @@ class burp (
   $password = "password",
   $cron     = true,
 
-# server: settings for /etc/burp-server.conf 
+# server: settings for /etc/burp-server.conf
   $directory           = "/mnt/backup/burpdata",
   $max_children        = "25",
   $max_status_children = "25",
@@ -69,7 +69,7 @@ class burp (
                                                        options  => ['options'],
                                                        password => 'password',
                                                      },
-                         
+
                            'servername-02.domain' => { includes => ['C:/', 'D:/'],
                                                        excludes => ['D:/$RECYCLE.BIN/'],
                                                        options  => ['options'],
@@ -77,15 +77,15 @@ class burp (
                                                      },
                          },
 ) {
-  
+
 include burp::package
 
   if $mode == "server" {
     class {'burp::server':
-      clientconf_hash       => $clientconf_hash, 
+      clientconf_hash       => $clientconf_hash,
       common_clientconfig   => $common_clientconfig,
     }
-      
+
   } elsif $mode == "client" {
       class {'burp::client':
         includes        => $includes,
