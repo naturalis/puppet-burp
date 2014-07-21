@@ -11,7 +11,7 @@ class burp::client (
   $cron             = undef,
 ){
 
-  host { $::fqdn:
+  host { $::hostname:
     ensure       => 'present',
     host_aliases => [$::hostname, 'localhost'],
     ip           => '127.0.0.1',
