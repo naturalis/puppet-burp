@@ -13,7 +13,7 @@ class burp::package{
       'path'   => '/etc/apt/sources.list.d'
     }
   )
-  
+
   apt::ppa { 'ppa:bas-dikkenberg/burp-latest':
     require => File['/etc/apt/sources.list.d']
   }
@@ -23,9 +23,15 @@ class burp::package{
   } else {
     $packagename = '1.4.12-1ubuntu2'
   }
-  
+
+  apt::key {'ppa:bas-dikkenberg/burp-latest':
+    key         => '31287BA1',
+    key_server  => 'keyserver.ubuntu.com',
+    require     => File['/etc/apt/sources.list.d']
+  }
+
   package { 'burp':
     ensure => $packagename,
-    require => Apt::Ppa['ppa:bas-dikkenberg/burp-latest']
+    require => [Apt::Ppa['ppa:bas-dikkenberg/burp-latest'], Apt::Key['ppa:bas-dikkenberg/burp-latest']]
   }
 }
