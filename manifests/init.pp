@@ -94,7 +94,7 @@ include burp::package
         password        => $password,
         client_password => $client_password,
         cname           => $cname,
-        cron            => $cron
+        cron            => $cron,
       }
 
     } else {
