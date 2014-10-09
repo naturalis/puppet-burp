@@ -13,18 +13,12 @@ class burp::package{
     }
   )
   
-  apt::ppa { 'ppa:bas-dikkenberg/burp-latest':
+  apt::ppa { 'ppa:hugo-vanduijn/burp-latest':
     require => File['/etc/apt/sources.list.d']
-  }
-
-  if ($lsbdistrelease == "13.04") or ($lsbdistrelease == "14.04") {
-    $packagename = '1.4.12-1ubuntu5'
-  } else {
-    $packagename = '1.4.12-1ubuntu2'
   }
   
   package { 'burp':
-    ensure => $packagename,
-    require => Apt::Ppa['ppa:bas-dikkenberg/burp-latest']
+    ensure => latest,
+    require => Apt::Ppa['ppa:hugo-vanduijn/burp-latest']
   }
 }
