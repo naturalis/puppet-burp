@@ -74,13 +74,7 @@ puppetlabs/apt
 
 Limitations
 -------------
-This module has been built on and tested against Puppet 3 and higher. It only supports Ubuntu operatingsystems.
-
-The module has been tested on:
-
-Ubuntu 12.04LTS
-Ubuntu 13.04
-
+This module has been built on and tested against Puppet 3 and higher. It only supports Ubuntu operating systems.
 
 
 The module has been tested on:

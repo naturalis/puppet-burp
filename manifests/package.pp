@@ -8,17 +8,26 @@ class burp::package{
     fail('Operatingsystem not supported yet')
   }
 
-  ensure_resource('file', '/etc/apt/sources.list.d', {
-      'ensure' => 'directory'
+  ensure_resource('file', 'sources.list.d', {
+      'ensure' => 'directory',
+      'path'   => '/etc/apt/sources.list.d'
     }
   )
-  
+
   apt::ppa { 'ppa:hugo-vanduijn/burp-latest':
     require => File['/etc/apt/sources.list.d']
   }
-  
+
+  apt::key {'ppa:hugo-vanduijn/burp-latest':
+    key         => 'A4EF7A24',
+    key_server  => 'keyserver.ubuntu.com',
+    require     => File['/etc/apt/sources.list.d']
+  }
+
   package { 'burp':
     ensure => latest,
-    require => Apt::Ppa['ppa:hugo-vanduijn/burp-latest']
+    require => [Apt::Ppa['ppa:hugo-vanduijn/burp-latest'], Apt::Key['ppa:hugo-vanduijn/burp-latest']]
   }
+
+
 }
