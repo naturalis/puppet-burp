@@ -74,12 +74,13 @@ puppetlabs/apt
 
 Limitations
 -------------
-This module has been built on and tested against Puppet 3 and higher. It only supports Ubuntu operating systems.
+This module has been built on and tested against Puppet 3 and higher. Burp package installation is supported on Ubuntu operating systems, install Burp manually on other operating systems. 
 
 
 The module has been tested on:
 - 
 Ubuntu 12.04LTS
+Ubuntu 14.04LTS
 
 Authors
 -------------

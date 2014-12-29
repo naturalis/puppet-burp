@@ -22,7 +22,7 @@ class burp::client (
     ensure  => present,
     mode    => '600',
     content => template("burp/burp.conf.erb"),
-    require => Package['burp']
+    require => Class['burp::package']
   }
 
   if ($cron == true){
