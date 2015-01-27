@@ -9,12 +9,18 @@ class burp::package{
   }
 
   if $::operatingsystem == 'Ubuntu' {
+
+
 #    ensure_resource('file', 'sources.list.d', {
 #        'ensure' => 'directory',
 #        'path'   => '/etc/apt/sources.list.d'
 #      }
 #    )
 
+    if !defined(Class['apt']) {
+      class { 'apt': }
+    }
+    
     apt::ppa { 'ppa:hugo-vanduijn/burp-latest':
       require => File['/etc/apt/sources.list.d']
     }
