@@ -49,6 +49,11 @@ class burp::server (
       content => template("burp/server_script_post.erb"),
       mode    => 0700,
     }
+    file { '/etc/logrotate.d/backup_stats':
+      content => template("burp/backup_stats_logrotate.erb"),
+      mode    => 0644,
+    }
+
   }
 
   create_resources('burp::clientconf', $clientconf_hash)
