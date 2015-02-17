@@ -43,6 +43,14 @@ class burp::server (
     require => File['/etc/burp/burp-server.conf'] 
   }
 
+  # Backup stats to logstash
+  if $burp::backup_stats_logstash == 'true' {
+    file { '/etc/burp/server_script_post':
+      content => template("burp/server_script_post.erb"),
+      mode    => 0700,
+    }
+  }
+
   create_resources('burp::clientconf', $clientconf_hash)
 
 
