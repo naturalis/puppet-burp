@@ -3,8 +3,8 @@
 mode = client
 port = 4971
 server = <%= scope['burp::server'] %>
-password = <%= @client_password %>
-cname = <%= @cname %>
+password = <%= scope['burp::client_password'] %>
+cname = <%= scope['burp::cname'] %>
 # Choose the protocol to use.
 # 0 to decide automatically, 1 to force burp1 mode, 2 to force burp2 mode.
 # protocol = 0
@@ -66,7 +66,7 @@ ssl_key_password = <%= scope['burp::ssl_key_password'] %>
 ssl_peer_cn = burpserver
 
 # Example syntax for pre/post scripts
-<%= @backup_script_pre %>
+<%= scope['burp::backup_script_pre'] %>
 #backup_script_post=/path/to/a/script
 #restore_script_pre=/path/to/a/script
 #restore_script_post=/path/to/a/script
