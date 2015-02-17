@@ -20,5 +20,8 @@ exclude=<%= exclude %>
 <%= option %>
 <% end -%> 
 
+# This argument is used by the script in /etc/burp/server_script_post
+server_script_post_arg=<%= @title %>
+
 # include common config
 . incexc/common
