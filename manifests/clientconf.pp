@@ -8,6 +8,7 @@ define burp::clientconf (
   $excludes = undef,
   $options  = undef,
   $password = undef,
+  $server_script_post = undef,
   ) {
 
   file { "/etc/burp/clientconfdir/${title}":
