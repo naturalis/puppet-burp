@@ -22,7 +22,7 @@ exclude=<%= exclude %>
 
 # This argument is used by the script in /etc/burp/server_script_post
 server_script_post=<%= scope['burp::server_script_post'] %>
-server_script_post_arg=<%= @title %>
+server_script_post_arg=<%= @cname %>
 
 # include common config
 . incexc/common
