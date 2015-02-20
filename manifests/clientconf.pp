@@ -12,7 +12,7 @@ define burp::clientconf (
 
   file { "/etc/burp/clientconfdir/${title}":
     mode    => "600",
-    content => template('burp/clientconf.erb'),
+    content => template('burp/clientconf-win.erb'),
     require => File['/etc/burp/clientconfdir'],
   }
 
