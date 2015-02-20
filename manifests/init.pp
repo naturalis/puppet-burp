@@ -48,13 +48,14 @@ class burp (
   $server_can_restore = "1",
 
 # client: create client config files in /etc/clientconfdir for Linux clients
-  $includes           = "/home",
-  $excludes           = "/tmp",
-  $options            = "",
-  $password           = "password",
-  $cron               = true,
-  $server_script_post = "/etc/burp/server_script_post",    # this script runs from burp server
-
+  $includes               = "/home",
+  $excludes               = "/tmp",
+  $options                = "",
+  $password               = "password",
+  $cron                   = true,
+  $server_script_post     = "/etc/burp/server_script_post",    # this script runs from burp server
+  $server_script_post_arg = $hostname,
+  
 # server: settings for /etc/burp-server.conf
   $directory             = "/mnt/backup/burpdata",
   $max_children          = "25",
