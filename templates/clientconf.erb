@@ -4,10 +4,8 @@ password = <%= @password %>
 # (without the leading '# ').
 
 # includes
-<% if !@includes.nil? -%>
 <% [@includes].flatten.each do |include| -%>
 include=<%= include %>
-<% end -%>
 <% end -%>
 
 # excludes
