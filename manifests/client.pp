@@ -25,15 +25,16 @@ class burp::client (
     require => Class['burp::package']
   }
 
-  if ($cron == true){
-    $randomcron = fqdn_rand(19)
-    cron { 'initiate backup':
-      command => '/usr/sbin/burp -a t',
-      user    => root,
-      minute  => [$randomcron,20+$randomcron, 40+$randomcron]
-    }
-  }
+  #if ($cron == true){
+  #  $randomcron = fqdn_rand(19)
+  #  cron { 'initiate backup':
+  #    command => '/usr/sbin/burp -a t',
+  #    user    => root,
+  #    minute  => [$randomcron,20+$randomcron, 40+$randomcron]
+  #  }
+  #}
 
+  # Create client config file on server with exported resource
   @@file { "/etc/burp/clientconfdir/${cname}":
     mode    => "600",
     content => template('burp/clientconf.erb'),
