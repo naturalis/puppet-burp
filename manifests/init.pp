@@ -55,6 +55,7 @@ class burp (
   $cron                   = true,
   $server_script_post     = "/etc/burp/server_script_post",    # this script runs from burp server
   $server_script_post_arg = $hostname,
+  $backup_script_pre      = undef,
   
 # server: settings for /etc/burp-server.conf
   $directory             = "/mnt/backup/burpdata",
