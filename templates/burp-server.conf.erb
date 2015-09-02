@@ -98,7 +98,7 @@ timer_arg = <%= scope['burp::starttime'] %>
 # %b - "backup"/"restore"/"verify"
 # %c - client name
 # %w - number of warnings, if any
-#notify_success_script = /etc/burp/notify_script
+notify_success_script = /etc/burp/notify_script
 #notify_success_arg = sendmail -t
 #notify_success_arg = To: youremail@example.com
 #notify_success_arg = From: burp
@@ -111,7 +111,7 @@ timer_arg = <%= scope['burp::starttime'] %>
 #notify_success_changes_only = 1
 
 # Uncomment the following for email notifications of backups that failed.
-#notify_failure_script = /etc/burp/notify_script
+notify_failure_script = /etc/burp/notify_script
 #notify_failure_arg = sendmail -t
 #notify_failure_arg = To: youremail@example.com
 #notify_failure_arg = From: burp

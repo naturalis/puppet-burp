@@ -1,3 +1,3 @@
 #!/bin/sh
-cd <%= scope['burp::directory'] %>/$3/current
+cd <%= scope['burp::directory'] %>/$1/current
 awk NF=NF RS= OFS=+ backup_stats >> /var/log/backup_stats.log

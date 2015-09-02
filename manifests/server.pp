@@ -45,8 +45,8 @@ class burp::server (
 
   # Backup stats to logstash
   if $burp::backup_stats_logstash == 'true' {
-    file { '/etc/burp/server_script_post':
-      content => template("burp/server_script_post.erb"),
+    file { '/etc/burp/notify_script':
+      content => template("burp/notify_script.erb"),
       mode    => 0700,
     }
     file { '/etc/logrotate.d/backup_stats':
@@ -57,6 +57,5 @@ class burp::server (
   }
 
   create_resources('burp::clientconf', $clientconf_hash)
-
 
 }
