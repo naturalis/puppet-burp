@@ -11,7 +11,7 @@ define burp::clientconf (
   ) {
 
   file { "/etc/burp/clientconfdir/${title}":
-    mode    => "600",
+    mode    => '0600',
     content => template('burp/clientconf.erb'),
     require => File['/etc/burp/clientconfdir'],
   }

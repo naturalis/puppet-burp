@@ -17,17 +17,17 @@ General settings:
   $ssl_key_password = "password",
 
 # client: settings for /etc/burp/burp.conf
+  $cron     = true,
   $server             = "127.0.0.1",
   $client_password    = "password",
   $cname              = $fqdn,
   $server_can_restore = "1",
-
-# client: create client config files in /etc/clientconfdir for Linux clients
   $includes = "/home",
   $excludes = "/tmp",
   $options  = "",
+
+# server: create client config files in /etc/clientconfdir for Linux clients based on hash
   $password = "password",
-  $cron     = true,
 
 # server: settings for /etc/burp-server.conf 
   $directory           = "/mnt/backup/burpdata",
@@ -39,20 +39,14 @@ General settings:
   $common_clientconfig = ['working_dir_recovery_method=resume'],
 ```
 
-To add Windows clients, create a hash with settings:
+To add Windows clients, create a hash with settings: 
 
 
 ```
-$clientconf_hash     = { 'servername-01.domain' => { includes => ['C:/', 'D:/'],
-                                                     excludes => ['D:/$RECYCLE.BIN/'],
-                                                     options  => ['options'],
-                                                     password => 'password',
+$clientconf_hash     = { 'servername-01.domain' => { password => 'password',
                                                    },
                          
-                         'servername-02.domain' => { includes => ['C:/', 'D:/'],
-                                                     excludes => ['D:/$RECYCLE.BIN/'],
-                                                     options  => ['options'],
-                                                     password => 'password',
+                         'servername-02.domain' => { password => 'password',
                                                    },
                        },
 ```

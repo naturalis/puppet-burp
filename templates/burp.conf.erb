@@ -74,7 +74,24 @@ ssl_peer_cn = burpserver
 # The following options specify exactly what to backup.
 # The server will override them if there is at least one 'include=' line on
 # the server side.
-include = /home
+# includes
+<% [@includes].flatten.each do |include| -%>
+include=<%= include %>
+<% end -%>
+
+# excludes
+<% if !@excludes.nil? -%>
+<% [@excludes].flatten.each do |exclude| -%>
+exclude=<%= exclude %>
+<% end -%>
+<% end -%>
+
+# extra options
+<% [@options].flatten.each do |option| -%>
+<%= option %>
+<% end -%>
+
+
 #exclude = /home/graham/testdir/librsync-0.9.7/testsuite
 #include = /home/graham/testdir/librsync-0.9.7/testsuite/deep
 #include = /home/graham/xdir

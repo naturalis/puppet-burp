@@ -20,8 +20,8 @@ class burp::client (
 
   file { '/etc/burp/burp.conf':
     ensure  => present,
-    mode    => '600',
-    content => template("burp/burp.conf.erb"),
+    mode    => '0600',
+    content => template('burp/burp.conf.erb'),
     require => Class['burp::package']
   }
 
@@ -35,7 +35,7 @@ class burp::client (
 
   # Create client config file on server with exported resource
   @@file { "/etc/burp/clientconfdir/${cname}":
-    mode    => "600",
+    mode    => '0600',
     content => template('burp/clientconf.erb'),
     tag     => 'burpclient-0f3fa71c-0d38-4249-aecb-52efa966627c',
   }
