@@ -26,11 +26,21 @@ class burp::client (
   }
 
   if ($cron == true){
+    file { '/var/log/burp':
+      ensure  => directory,
+      mode    => '0755',
+    }
     cron { 'initiate backup':
-      command => '/usr/sbin/burp -a t',
+      command => '/usr/sbin/burp -a t >> /var/log/burp/burp.log',
       user    => root,
       minute  => '*/20',
     }
+    file { '/etc/logrotate.d/burpcron':
+      ensure  => present,
+      mode    => '0644',
+      content => template('burp/logrotate_burpcron.erb'),
+    }
+
   }
 
   # Create client config file on server with exported resource
