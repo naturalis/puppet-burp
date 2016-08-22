@@ -1,0 +1,64 @@
+#!/bin/bash
+#
+# Check burp backup status of a single client from server by Hugo van Duijn
+#
+# Designed for usage with sensu
+#
+# Makes use of the burp -a S command for detecting last successful or running backup
+# Creates errorlevel 2 for critical conditions, 1 for warning conditions and 0 if 
+# backup is younger than warninghours
+#
+
+difference=0
+backupseconds=0
+warninghours=<%= @chkwarninghours %>
+criticalhours=<%= @chkcriticalhours %>
+currenttime=$(date +%s)
+lastbackup=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Backup list' | awk '{print $4" "$5}'`
+backuprunning=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Start time' | awk '{print $3" "$4}'`
+status='older'
+backupstatus='lastbackup'
+
+if [[ -z nbackuprunning ]]
+then
+  status='running longer'
+  backupstatus='backup started'
+  lastbackup=$backuprunning
+fi
+
+
+# check for backup entry using burp test
+if [[ -z $lastbackup ]]
+then
+  echo "No successful backup found in /var/log/burp/burp.log and /var/log/burp/burp.log.1"
+  exit 2
+fi
+
+# check for backup entry for "never" in burp test
+if [ "$lastbackup" = "never" ]
+then
+  echo "Lastbackup: never"
+  exit 2
+fi
+
+lastbackup="${lastbackup:0: -1}"
+backupseconds=$(date +%s -d "$lastbackup")
+difference=$(expr $currenttime - $backupseconds )
+
+# check if backup is older than criticalhours
+if [ `expr $difference / 3600` -gt $criticalhours ]
+then 
+  echo "Critical, backup is $status than $criticalhours hours, $backupstatus : `expr $difference / 3600` hours ago."
+  exit 2
+fi
+
+# check if backup is older than warninghours
+if [ `expr $difference / 3600` -gt $warninghours ]
+then 
+  echo "Warning, backup is $status than $warninghours hours, $backupstatus : `expr $difference / 3600` hours ago."
+  exit 1
+else
+  echo "Check ok: Backup is not $status than $warninghours hours, $backupstatus : `expr $difference / 3600` hours ago."
+  exit 0
+fi
+

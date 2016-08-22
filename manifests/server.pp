@@ -43,13 +43,17 @@ class burp::server (
     file { '/etc/burp/notify_script':
       content => template('burp/notify_script.erb'),
       mode    => '0700',
+      require => Package['burp']
     }
     file { '/etc/logrotate.d/backup_stats':
       content => template('burp/backup_stats_logrotate.erb'),
       mode    => '0644',
+      require => Package['burp']
     }
   }
 
-  create_resources('burp::clientconf', $clientconf_hash)
+  if $burp::clientconf == true {
+    create_resources('burp::clientconf', $clientconf_hash)
+  }
 
 }
