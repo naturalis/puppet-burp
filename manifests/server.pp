@@ -14,7 +14,7 @@ class burp::server (
 
   file { '/etc/burp/burp-server.conf':
     ensure  => present,
-    mode    => '0600',
+    mode    => '0644',
     content => template('burp/burp-server.conf.erb'),
     require => Package['burp']
   }

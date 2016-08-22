@@ -10,8 +10,8 @@ define burp::chkbackup (
   ) {
 
 # create check script from template
-  file { "/usr/local/sbin/chkclient_${title}":
-    mode    => '0700',
+  file { "/usr/local/sbin/chkclient_${title}.sh":
+    mode    => '0755',
     content => template('burp/chkbackup.erb'),
   }
 

@@ -19,7 +19,7 @@ backuprunning=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %
 status='older'
 backupstatus='lastbackup'
 
-if [[ -z nbackuprunning ]]
+if [[ -n $backuprunning ]]
 then
   status='running longer'
   backupstatus='backup started'
@@ -30,7 +30,7 @@ fi
 # check for backup entry using burp test
 if [[ -z $lastbackup ]]
 then
-  echo "No successful backup found in /var/log/burp/burp.log and /var/log/burp/burp.log.1"
+  echo "No successful backup found using the burp -a S command"
   exit 2
 fi
 
