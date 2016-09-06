@@ -15,8 +15,26 @@ warninghours=<%= @chkwarninghours %>
 criticalhours=<%= @chkcriticalhours %>
 currenttime=$(date +%s)
 lastbackup=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Backup list' | awk '{print $4" "$5}'`
+lastbackupnever=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Backup list' | awk '{print $3}'`
+backupstatus=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Status' | awk '{print $3}'`
 backuprunning=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Start time' | awk '{print $3" "$4}'`
 status='older'
+
+if [[ -n $backupstatus ]]
+then
+  if [ $backupstatus == "(scanning)" ]
+  then
+    echo "Check ok: Backup is active, no trace of time possible."
+    exit 0
+  fi
+
+  if [ $backupstatus == "(deleting)" ]
+  then
+    echo "Check ok: Backup is active, no trace of time possible."
+    exit 0
+  fi
+fi
+
 backupstatus='lastbackup'
 
 if [[ -n $backuprunning ]]
@@ -26,18 +44,17 @@ then
   lastbackup=$backuprunning
 fi
 
+# check for backup entry for "never" in burp test
+if [ "$lastbackupnever" = "never" ]
+then
+  echo "Lastbackup: never"
+  exit 2
+fi
 
 # check for backup entry using burp test
 if [[ -z $lastbackup ]]
 then
   echo "No successful backup found using the burp -a S command"
-  exit 2
-fi
-
-# check for backup entry for "never" in burp test
-if [ "$lastbackup" = "never" ]
-then
-  echo "Lastbackup: never"
   exit 2
 fi
 
