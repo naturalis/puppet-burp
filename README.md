@@ -76,7 +76,7 @@ $clientconf_hash     = { 'servername-01.domain' => { password => 'password',
 Classes
 -------------
 burp
-brup::package
+burp::package
 burp::server
 burp::client
 burp::clientconf
