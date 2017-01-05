@@ -75,16 +75,16 @@ $clientconf_hash     = { 'servername-01.domain' => { password => 'password',
 
 Classes
 -------------
-burp
-burp::package
-burp::server
-burp::client
-burp::clientconf
-burp::chkbackup
+* burp
+* burp::package
+* burp::server
+* burp::client
+* burp::clientconf
+* burp::chkbackup
 
 Dependencies
 -------------
-puppetlabs/apt
+* puppetlabs/apt
 
 
 Limitations
@@ -93,11 +93,10 @@ This module has been built on and tested against Puppet 3 and higher. Burp packa
 
 
 The module has been tested on:
-- 
-Ubuntu 12.04LTS
-Ubuntu 14.04LTS
+* Ubuntu 12.04LTS
+* Ubuntu 14.04LTS
 
 Authors
 -------------
-Author Name <rudi.broekhuizen@naturalis.nl>
-Author Name <hugo.vanduijn@naturalis.nl>
+* [Rudi Broekhuizen](rudi.broekhuizen@naturalis.nl)
+* [Hugo van Duijn](mailto:hugo.vanduijn@naturalis.nl)
