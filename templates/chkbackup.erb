@@ -14,10 +14,10 @@ backupseconds=0
 warninghours=<%= @chkwarninghours %>
 criticalhours=<%= @chkcriticalhours %>
 currenttime=$(date +%s)
-lastbackup=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Backup list' | awk '{print $4" "$5}'`
-lastbackupnever=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Backup list' | awk '{print $3}'`
-backupstatus=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Status' | awk '{print $3}'`
-backuprunning=`burp -a S -c /etc/burp/burp-server.conf -C <%= @chkbackupclient %> | grep 'Start time' | awk '{print $3" "$4}'`
+lastbackup=`burp -a S -c /etc/burp/burp.conf -C <%= @chkbackupclient %> | grep 'Backup list' | awk '{print $4" "$5}'`
+lastbackupnever=`burp -a S -c /etc/burp/burp.conf -C <%= @chkbackupclient %> | grep 'Backup list' | awk '{print $3}'`
+backupstatus=`burp -a S -c /etc/burp/burp.conf -C <%= @chkbackupclient %> | grep 'Status' | awk '{print $3}'`
+backuprunning=`burp -a S -c /etc/burp/burp.conf -C <%= @chkbackupclient %> | grep 'Start time' | awk '{print $3" "$4}'`
 status='older'
 
 if [[ -n $backupstatus ]]

@@ -53,7 +53,7 @@ class burp::server (
   }
 
   if $burp::clientconf == true {
-    create_resources('burp::clientconf', $clientconf_hash)
+    create_resources('burp::clientconf', $burp::server::clientconf_hash)
   }
 
 }

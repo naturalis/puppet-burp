@@ -10,6 +10,7 @@ class burp (
 # general settings
   $mode             = 'server',
   $ssl_key_password = 'password',
+  $burp_dirs        = ['/etc/burp','/etc/burp/clientconfdir','/etc/burp/CA-client'],
 
 # client: settings for /etc/burp/burp.conf
   $server             = '127.0.0.1',
@@ -52,22 +53,26 @@ class burp (
                             'testclient2' => { 'chkwarninghours' => '24', 'chkcriticalhours' => '48' }
                           },
 ) {
+  file { $burp::burp_dirs:
+    ensure  => 'directory',
+  }
 
-include burp::package
 
-  if $mode == 'server' {
-    if $chkbackup == true {
-        create_resources('burp::chkbackup', $chkbackup_hash)
+  if $burp::mode == 'server' {
+    include burp::serverpackage
+    if $burp::chkbackup == true {
+        create_resources('burp::chkbackup', $burp::chkbackup_hash)
     }
     class {'burp::server':
-      clientconf_hash       => $clientconf_hash,
-      common_clientconfig   => $common_clientconfig,
+      clientconf_hash       => $burp::clientconf_hash,
+      common_clientconfig   => $burp::common_clientconfig,
+      require               => File[$burp::burp_dirs]
     }
-    if $autoupdate == true {
+    if $burp::autoupdate == true {
       exec {'autoupgradedir':
-        command           => "mkdir -p /etc/burp/autoupgrade/server/win64/${autoupgradeversion}",
+        command           => "mkdir -p /etc/burp/autoupgrade/server/win64/${burp::autoupgradeversion}",
         path              => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-        unless            => "/usr/bin/test -d /etc/burp/autoupgrade/server/win64/${autoupgradeversion}",
+        unless            => "/usr/bin/test -d /etc/burp/autoupgrade/server/win64/${burp::autoupgradeversion}",
         require           => Class['burp::server']
       }
       file { "/etc/burp/autoupgrade/server/win64/script":
@@ -78,24 +83,26 @@ include burp::package
         mode              => '0644',
         require           => Exec['autoupgradedir']
       }
-      file { "/etc/burp/autoupgrade/server/win64/${autoupgradeversion}/package":
+      file { "/etc/burp/autoupgrade/server/win64/${burp::autoupgradeversion}/package":
         ensure            => present,
-        source            => "puppet:///modules/burp/${autoupgradefilename}",
+        source            => "puppet:///modules/burp/${burp::autoupgradefilename}",
         owner             => 'root',
         group             => 'root',
         mode              => '0644',
         require           => Exec['autoupgradedir']
       }
     }
-  } elsif $mode == 'client' {
+  } elsif $burp::mode == 'client' {
+      include burp::clientpackage
       class {'burp::client':
-        includes        => $includes,
-        excludes        => $excludes,
-        options         => $options,
-        password        => $password,
-        client_password => $client_password,
-        cname           => $cname,
-        cron            => $cron,
+        includes        => $burp::includes,
+        excludes        => $burp::excludes,
+        options         => $burp::options,
+        password        => $burp::password,
+        client_password => $burp::client_password,
+        cname           => $burp::cname,
+        cron            => $burp::cron,
+        require         => File[$burp::burp_dirs]
       }
 
     } else {

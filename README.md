@@ -1,7 +1,7 @@
 puppet-burp
 ====================
 
-Manage Burp, backup and restore program
+Manage Burp2, backup and restore program
 
 Install and configure server or client. Create scripts usable for monitoring backup and exports the scripts as sensu checks. 
 
@@ -34,8 +34,8 @@ General settings:
 
 # server: autoupdate (Windows 64 bit only), put file in files.
   $autoupgrade            = true,
-  $autoupgradeversion     = '1.4.40',
-  $autoupgradefilename    = 'burp-win64-installer-1.4.40.exe',
+  $autoupgradeversion     = '2.0.54',
+  $autoupgradefilename    = 'burp-win64-installer-2.0.54.exe',
 
 # server: settings for /etc/burp-server.conf
   $directory             = '/mnt/backup/burpdata',
@@ -89,12 +89,11 @@ Dependencies
 
 Limitations
 -------------
-This module has been built on and tested against Puppet 3 and higher. Burp package installation is supported on Ubuntu operating systems, install Burp manually on other operating systems. 
+This module has been built on and tested against Puppet 4 and higher. Burp package installation is supported on Ubuntu operating systems, install Burp manually on other operating systems. 
 
 
 The module has been tested on:
-* Ubuntu 12.04LTS
-* Ubuntu 14.04LTS
+* Ubuntu 16.04LTS
 
 Authors
 -------------

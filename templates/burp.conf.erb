@@ -2,11 +2,14 @@
 
 mode = client
 port = 4971
+status_port = 4972
 server = <%= scope['burp::server'] %>
 password = <%= scope['burp::client_password'] %>
 cname = <%= scope['burp::cname'] %>
 # Choose the protocol to use.
-# 0 to decide automatically, 1 to force burp1 mode, 2 to force burp2 mode.
+# 0 to decide automatically, 1 to force protocol1 mode (file level granularity
+# with a pseudo mirrored storage on the server and optional rsync). 2 forces
+# protocol2 mode (inline deduplication with variable length blocks).
 # protocol = 0
 pidfile = /var/run/burp.client.pid
 syslog = 0
@@ -21,10 +24,17 @@ progress_counter = 1
 # autoupgrade_dir=/etc/burp/autoupgrade/client
 # OS path component for the autoupgrade directory on the server.
 autoupgrade_os=<%= @operatingsystem %>_<%= @operatingsystemrelease %>
+# Wait a random number of seconds between 0 and the given number before
+# contacting the server on a timed backup.
+# randomise = 1200
 
 # Set server_can_restore to 0 if you do not want the server to be able to
 # initiate a restore.
 server_can_restore = <%= scope['burp::server_can_restore'] %>
+
+# Set server_can_override_includes to 0 if you do not want the server to be
+# able to override the local include/exclude list. The default is 1.
+# server_can_override_includes = 1
 
 # Set an encryption password if you do not trust the server with your data.
 # Note that this will mean that network deltas will not be possible. Each time
@@ -58,6 +68,9 @@ ssl_key = /etc/burp/ssl_cert-client.key
 
 # Client SSL ciphers
 #ssl_ciphers =
+
+# Client SSL compression. Default is zlib5. Set to zlib0 to turn it off.
+#ssl_compression = zlib5
 
 # SSL key password
 ssl_key_password = <%= scope['burp::ssl_key_password'] %>
@@ -123,3 +136,12 @@ nobackup = .nobackup
 # Exclude files from compression by extension.
 exclude_comp=bz2
 exclude_comp=gz
+exclude_comp=zip
+exclude_comp=jpg
+exclude_comp=jpeg
+# When backing up, whether to enable O_NOATIME when opening files and
+# directories. The default is atime=0, which enables O_NOATIME.
+#atime=1
+# When enabled, this causes problems in the phase1 scan (such as an 'include'
+# being missing) to be treated as fatal errors. The default is 0.
+#scan_problem_raises_error=1
