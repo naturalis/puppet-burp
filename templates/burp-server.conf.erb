@@ -4,6 +4,7 @@ mode = server
 port = 4971
 status_port = 4972
 directory = <%= scope['burp::directory'] %>
+dedup_group = global
 clientconfdir = /etc/burp/clientconfdir
 pidfile = /var/run/burp.server.pid
 hardlinked_archive = 0
