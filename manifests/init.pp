@@ -24,6 +24,8 @@ class burp (
   $options                = '',
   $password               = 'password',
   $cron                   = true,
+  $cronminute             = '*/20',
+  $cronhour               = '*',
   $backup_script_pre      = '',
 
 # server: autoupdate (Windows 64 bit only), put file in files 
@@ -101,7 +103,6 @@ class burp (
         password        => $burp::password,
         client_password => $burp::client_password,
         cname           => $burp::cname,
-        cron            => $burp::cron,
         require         => File[$burp::burp_dirs]
       }
 

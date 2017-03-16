@@ -1,7 +1,6 @@
 # Class: burp::package-burp-client
 #
 
-
 class burp::clientpackage{
 
   if $::operatingsystem != 'Ubuntu' {
@@ -29,10 +28,19 @@ class burp::clientpackage{
         server => 'keyserver.ubuntu.com'
     }
 
+    exec { 'for_burp_apt_get_update':
+      command     => 'apt-get update',
+      cwd         => '/tmp',
+      path        => ['/usr/bin'],
+      require     => Apt::Source['ziirish'],
+      subscribe   => Apt::Source['ziirish'],
+      refreshonly => true,
+    }
+
     package { 'burp-client':
       ensure   => latest,
       install_options => ['--allow-unauthenticated', '-f'],
-      require  => Apt::Source['ziirish']
+      require  => Exec['for_burp_apt_get_update']
     }
   }
 
