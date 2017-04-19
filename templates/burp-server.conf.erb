@@ -1,12 +1,23 @@
-# This is an example config file for the burp server.
+# This is an example cOBonfig file for the burp server.
 
 mode = server
 port = 4971
+# Think carefully before changing the status port address, as it can be used
+# to view the contents of backups.
+#status_address = 127.0.0.1
+# If you do not wish to run a status server at all, comment status_port out.
 status_port = 4972
 directory = <%= scope['burp::directory'] %>
 dedup_group = global
 clientconfdir = /etc/burp/clientconfdir
-pidfile = /var/run/burp.server.pid
+# Choose the protocol to use.
+# 0 to decide automatically, 1 to force protocol1 mode (file level granularity
+# with a pseudo mirrored storage on the server and optional rsync). 2 forces
+# protocol2 mode (inline deduplication with variable length blocks).
+# Like many other settings, this can be set per client in the clientconfdir
+# files.
+# protocol = 0
+pidfile = @runstatedir@/burp.server.pid
 hardlinked_archive = 0
 working_dir_recovery_method = delete
 max_children = <%= scope['burp::max_children'] %>
@@ -27,6 +38,9 @@ client_can_verify = 1
 # ratelimit = 1.5
 # Network timeout defaults to 7200 seconds (2 hours).
 # network_timeout = 7200
+
+# Server storage compression. Default is zlib9. Set to zlib0 to turn it off.
+#compression = zlib9
 
 # When the client version does not match the server version, log a warning.
 # Set to 0 to turn it off.
@@ -62,6 +76,10 @@ ca_name = burpCA
 ca_server_name = burpserver
 ca_burp_ca = /usr/sbin/burp_ca
 
+# Check for revoked certificates in the certificate revocation list.
+# Turn this off if you use the old ssl_extra_checks_script server script.
+ca_crl_check = 1
+
 # SSL certificate authority - same file on both server and client
 ssl_cert_ca = /etc/burp/ssl_cert_ca.pem
 
@@ -73,6 +91,9 @@ ssl_key = /etc/burp/ssl_cert-server.key
 
 # Server SSL ciphers
 #ssl_ciphers = 
+
+# Server SSL compression. Default is zlib5. Set to zlib0 to turn it off.
+#ssl_compression = zlib5
 
 # SSL key password
 ssl_key_password = <%= scope['burp::ssl_key_password'] %>
@@ -141,3 +162,7 @@ notify_failure_script = /etc/burp/notify_script
 # individual original clients in the individual clientconfdir files.
 # restore_client = someclient
 # restore_client = someotherclient
+
+# Whether or not the server process should cache the tree when a monitor client
+# is browsing a backup. Advantage: speed. Disadvantage: more memory is used.
+#monitor_browse_cache = 1
