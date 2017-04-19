@@ -22,53 +22,13 @@ status='older'
 
 if [[ -n $backupstatus ]]
 then
-  if [ $backupstatus == "(restoring)" ]
-  then
-    backupstatus="active"
-  fi
-
-  if [ $backupstatus == "(shuffling)" ]
-  then
-    backupstatus="active"
-  fi
-
   if [ $backupstatus == "(scanning)" ]
   then
-    backupstatus="active"
+    echo "Check ok: Backup is active, no trace of time possible."
+    exit 0
   fi
 
   if [ $backupstatus == "(deleting)" ]
-  then
-    backupstatus="active"
-  fi
-
-  if [ $backupstatus == "(running)" ]
-  then
-    backupstatus="active"
-  fi
-
-  if [ $backupstatus == "(backup)" ]
-  then
-    backupstatus="active"
-  fi
-
-  if [ $backupstatus == "(merging)" ]
-  then
-    backupstatus="active"
-  fi
-
-else
-  backupstatus="unknown"
-fi
-
-
-if [[ -n $backuprunning ]]
-then
-  status='running longer'
-  backupstatus='backup started'
-  lastbackup=$backuprunning
-else
-  if [ $backupstatus == "active" ]
   then
     echo "Check ok: Backup is active, no trace of time possible."
     exit 0
@@ -76,6 +36,13 @@ else
 fi
 
 backupstatus='lastbackup'
+
+if [[ -n $backuprunning ]]
+then
+  status='running longer'
+  backupstatus='backup started'
+  lastbackup=$backuprunning
+fi
 
 # check for backup entry for "never" in burp test
 if [ "$lastbackupnever" = "never" ]

@@ -8,6 +8,7 @@ class burp::client (
   $options          = undef,
   $password         = undef,
   $client_password  = undef,
+  $cron             = undef,
 ){
 
   host { $::hostname:
@@ -19,12 +20,12 @@ class burp::client (
 
   file { '/etc/burp/burp.conf':
     ensure  => present,
-    mode    => '0600',
+    mode    => '0644',
     content => template('burp/burp.conf.erb'),
     require => Class['burp::clientpackage']
   }
 
-  if ($burp::cron == 'true'){
+  if ($burp::client::cron == true){
     file { '/var/log/burp':
       ensure  => directory,
       mode    => '0755',
@@ -32,8 +33,7 @@ class burp::client (
     cron { 'initiate backup':
       command => '/usr/sbin/burp -a t >> /var/log/burp/burp.log',
       user    => root,
-      hour    => $burp::cronhour,
-      minute  => $burp::cronminute
+      minute  => '*/20',
     }
     file { '/etc/logrotate.d/burpcron':
       ensure  => present,
