@@ -1,11 +1,3 @@
 #!/bin/sh
 cd <%= scope['burp::directory'] %>/$1/current
 awk NF=NF RS= OFS=+ backup_stats >> /var/log/backup_stats.log
-
-if [ -f '/opt/storageanalytics/scripts/backup-burp-linux.py' ];
-then
-  cd /opt/storageanalytics/scripts
-  # wait 5 minutes to make sure backup is finished and all locks are cleared
-  sleep 300
-  python backup-burp-linux.py <%= scope['burp::directory'] %>/$1
-fi

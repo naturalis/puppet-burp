@@ -10,27 +10,28 @@ class burp (
 # general settings
   $mode             = 'server',
   $ssl_key_password = 'password',
+  $burp_dirs        = ['/etc/burp','/etc/burp/clientconfdir','/etc/burp/CA-client'],
 
 # client: settings for /etc/burp/burp.conf
   $server             = '127.0.0.1',
   $client_password    = 'password',
-  $cname              = $::fqdn,
+  $cname              = $hostname,
   $server_can_restore = '1',
-  $client_user        = 'root',  # set sensu for server monitoring
-  $client_group       = 'root',  # set sensu for server monitoring
-  
+
 # client: create client config files in /etc/clientconfdir for Linux clients
   $includes               = '/home',
   $excludes               = '/tmp',
   $options                = '',
   $password               = 'password',
   $cron                   = true,
+  $cronminute             = '*/20',
+  $cronhour               = '*',
   $backup_script_pre      = '',
 
 # server: autoupdate (Windows 64 bit only), put file in files 
   $autoupgrade            = true,
-  $autoupgradeversion     = '2.0.54',
-  $autoupgradefilename    = 'burp-win64-installer-2.0.54.exe',
+  $autoupgradeversion     = '1.4.40',
+  $autoupgradefilename    = 'burp-win64-installer-1.4.40.exe',
 
 # server: settings for /etc/burp-server.conf
   $directory             = '/mnt/backup/burpdata',
@@ -54,23 +55,12 @@ class burp (
                             'testclient2' => { 'chkwarninghours' => '24', 'chkcriticalhours' => '48' }
                           },
 ) {
+  file { $burp::burp_dirs:
+    ensure  => 'directory',
+  }
+
 
   if $burp::mode == 'server' {
-    file {['/etc/burp']:
-      ensure                  => 'directory',
-      mode                    => '0640',
-      owner                   => 'root',
-      group                   => $client_group,
-      recurse                 => true,
-    }
-
-    file {['/etc/burp/timer_script']:
-      ensure                  => 'file',
-      mode                    => '0770',
-      owner                   => 'root',
-      group                   => $client_group,
-      require                 => Class['burp::server']
-    }
     include burp::serverpackage
     if $burp::chkbackup == true {
         create_resources('burp::chkbackup', $burp::chkbackup_hash)
@@ -78,6 +68,7 @@ class burp (
     class {'burp::server':
       clientconf_hash       => $burp::clientconf_hash,
       common_clientconfig   => $burp::common_clientconfig,
+      require               => File[$burp::burp_dirs]
     }
     if $burp::autoupdate == true {
       exec {'autoupgradedir':
@@ -112,7 +103,7 @@ class burp (
         password        => $burp::password,
         client_password => $burp::client_password,
         cname           => $burp::cname,
-        cron            => $burp::cron,
+        require         => File[$burp::burp_dirs]
       }
 
     } else {

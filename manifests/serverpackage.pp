@@ -2,7 +2,7 @@
 #
 
 
-class burp::serverpackage{
+class burp::clientpackage{
 
   if $::operatingsystem != 'Ubuntu' {
     notice('Operatingsystem not supported, perform manual burp installation.')
@@ -15,7 +15,7 @@ class burp::serverpackage{
     }
 
     apt::source { 'ziirish':
-      location => "http://ziirish.info/repos/ubuntu/${lsbdistcodename}/",
+      location => 'http://ziirish.info/repos/ubuntu/xenial/',
       release  => 'zi-stable',
       repos    => 'main',
       key      => { 
