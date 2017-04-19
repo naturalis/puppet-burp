@@ -19,8 +19,8 @@ class burp (
   $server_can_restore = '1',
 
 # client: create client config files in /etc/clientconfdir for Linux clients
-  $includes               = '/home',
-  $excludes               = '/tmp',
+  $includes               = ['/home'],
+  $excludes               = ['/tmp'],
   $options                = '',
   $password               = 'password',
   $cron                   = true,
@@ -30,8 +30,8 @@ class burp (
 
 # server: autoupdate (Windows 64 bit only), put file in files 
   $autoupgrade            = true,
-  $autoupgradeversion     = '1.4.40',
-  $autoupgradefilename    = 'burp-win64-installer-1.4.40.exe',
+  $autoupgradeversion     = '2.0.54',
+  $autoupgradefilename    = 'burp-win64-installer-2.0.54.exe',
 
 # server: settings for /etc/burp-server.conf
   $directory             = '/mnt/backup/burpdata',
