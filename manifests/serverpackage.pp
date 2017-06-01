@@ -4,21 +4,17 @@
 
 class burp::serverpackage{
 
-  if $::operatingsystem != 'Ubuntu' {
-    notice('Operatingsystem not supported, perform manual burp installation.')
-  }
-
-  if $::operatingsystem == 'Ubuntu' {
+  if $::operatingsystem == 'Ubuntu' or $::operatingsystem == 'Debian'  {
 
     if !defined(Class['apt']) {
       class { 'apt': }
     }
 
     apt::source { 'ziirish':
-      location => "http://ziirish.info/repos/ubuntu/${lsbdistcodename}/",
+      location => "http://ziirish.info/repos/${operatingsystem.downcase}/${lsbdistcodename}",
       release  => 'zi-stable',
       repos    => 'main',
-      key      => { 
+      key      => {
         'id'     => '3F154A9DA875B6C613214D609EBCB6DB11260BA7',
         'server' => 'keyserver.ubuntu.com'
       }
@@ -34,6 +30,9 @@ class burp::serverpackage{
       install_options => ['--allow-unauthenticated', '-f'],
       require  => Apt::Source['ziirish']
     }
+  }
+  else {
+    notice('Operatingsystem not supported, perform manual burp installation.')
   }
 
 
