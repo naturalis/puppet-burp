@@ -24,7 +24,7 @@ class burp::client (
     require => Class['burp::clientpackage']
   }
 
-  if ($burp::cron == 'true'){
+  if ($burp::cron == true){
     file { '/var/log/burp':
       ensure  => directory,
       mode    => '0755',
