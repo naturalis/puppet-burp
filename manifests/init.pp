@@ -15,13 +15,15 @@ class burp (
 # client: settings for /etc/burp/burp.conf
   $server             = '127.0.0.1',
   $client_password    = 'password',
-  $cname              = $hostname,
+  $cname              = $fqdn,
   $server_can_restore = '1',
+  $client_user        = 'root',  # set sensu for server monitoring
+  $client_group       = 'root',  # set sensu for server monitoring
 
 # client: create client config files in /etc/clientconfdir for Linux clients
   $includes               = ['/home'],
   $excludes               = ['/tmp'],
-  $options                = '',
+  $options                = [''],
   $password               = 'password',
   $cron                   = true,
   $cronminute             = '*/20',

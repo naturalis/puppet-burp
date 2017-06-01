@@ -7,11 +7,6 @@ class burp::server (
   $password             = $burp::client_password,
 ) {
 
-  file { '/etc/burp/clientconfdir':
-    ensure     => 'directory',
-    require    => Package['burp-server']
-  }
-
   file { '/etc/burp/burp-server.conf':
     ensure  => present,
     mode    => '0644',
@@ -40,7 +35,7 @@ class burp::server (
     require => File['/etc/burp/clientconfdir']
   }
 
-  service { 'burp':
+  service { 'burp-server':
     ensure  => 'running',
     require => File['/etc/burp/burp-server.conf']
   }

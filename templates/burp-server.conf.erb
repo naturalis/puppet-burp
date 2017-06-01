@@ -18,7 +18,7 @@ status_address = 127.0.0.1
 # Like many other settings, this can be set per client in the clientconfdir
 # files.
 # protocol = 0
-pidfile = @runstatedir@/burp.server.pid
+pidfile = /var/run/burp.server.pid
 hardlinked_archive = 0
 working_dir_recovery_method = delete
 max_children = <%= scope['burp::max_children'] %>
@@ -102,7 +102,7 @@ ssl_key_password = <%= scope['burp::ssl_key_password'] %>
 # Server DH file.
 ssl_dhfile = /etc/burp/dhfile.pem
 
-timer_script = /etc/burp/timer_script
+timer_script = /usr/share/burp/scripts/timer_script
 # Ensure that 20 hours elapse between backups
 # Available units:
 # s (seconds), m (minutes), h (hours), d (days), w (weeks), n (months)

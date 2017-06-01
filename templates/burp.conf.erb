@@ -88,19 +88,19 @@ ssl_peer_cn = burpserver
 # The server will override them if there is at least one 'include=' line on
 # the server side.
 # includes
-<% [@includes].flatten.each do |include| -%>
+<% scope['burp::includes'].flatten.each do |include| -%>
 include=<%= include %>
 <% end -%>
 
 # excludes
-<% if !@excludes.nil? -%>
-<% [@excludes].flatten.each do |exclude| -%>
+<% if !scope['burp::excludes'].nil? -%>
+<% scope['burp::excludes'].flatten.each do |exclude| -%>
 exclude=<%= exclude %>
 <% end -%>
 <% end -%>
 
 # extra options
-<% [@options].flatten.each do |option| -%>
+<% scope['burp::options'].flatten.each do |option| -%>
 <%= option %>
 <% end -%>
 
