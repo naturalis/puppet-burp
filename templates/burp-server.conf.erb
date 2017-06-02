@@ -58,9 +58,9 @@ autoupgrade_dir = /etc/burp/autoupgrade/server
 # You can have as many 'keep' lines as you like.
 # For example, if running backups daily, setting 7, 4, 6 will keep
 # 7 daily backups, 4 weekly, and 6 four-weekly backups.
-keep = <%= scope['burp::keep'] %>
-# keep = 4
-# keep = 6
+<% scope['burp::keep'].flatten.each do |keep| -%>
+keep=<%= keep %>
+<% end -%>
 
 # Run as different user/group.
 # user=graham

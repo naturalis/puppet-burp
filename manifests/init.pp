@@ -28,7 +28,7 @@ class burp (
   $cronhour               = '*',
   $backup_script_pre      = '',
 
-# server: autoupdate (Windows 64 bit only), put file in files 
+# server: autoupdate (Windows 64 bit only), put file in files
   $autoupgrade            = true,
   $autoupgradeversion     = '2.0.54',
   $autoupgradefilename    = 'burp-win64-installer-2.0.54.exe',
@@ -37,14 +37,14 @@ class burp (
   $directory             = '/mnt/backup/burpdata',
   $max_children          = '25',
   $max_status_children   = '25',
-  $keep                  = '70',
+  $keep                  = ['7','4','12'],
   $waittime              = '20h',
   $starttime             = 'Mon,Tue,Wed,Thu,Fri,Sat,Sun,00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23',
   $common_clientconfig   = ['working_dir_recovery_method=resume'],
   $backup_stats_logstash = true,
 
 # server: create client config files in /etc/clientconfdir for Windows clients
-  $clientconf           = false,  
+  $clientconf           = false,
   $clientconf_hash      = { 'servername-01.domain' => { password => 'password'},
                             'servername-02.domain' => { password => 'password'}
                           },
