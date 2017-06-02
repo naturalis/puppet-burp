@@ -47,7 +47,7 @@ class burp::client (
   @@file { "/etc/burp/clientconfdir/${burp::client::cname}":
     mode    => '0600',
     content => template('burp/clientconf.erb'),
-    tag     => 'burpclient-0f3fa71c-0d38-4249-aecb-52efa966627c',
+    tag     => 'burpclient',
   }
 
 

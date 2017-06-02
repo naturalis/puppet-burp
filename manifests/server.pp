@@ -59,11 +59,13 @@ class burp::server (
     }
   }
 
-  file { "/etc/burp/clientconfdir/${::fqdn}":
-    mode    => '0600',
-    content => template('burp/clientconf.erb'),
-    require => File['/etc/burp/clientconfdir'],
-  }
+  # file { "/etc/burp/clientconfdir/${::fqdn}":
+  #   mode    => '0600',
+  #   content => template('burp/clientconf.erb'),
+  #   require => File['/etc/burp/clientconfdir'],
+  # }
+
+  File <<| tag == 'burpclient' |>>
 
   if $burp::clientconf == true {
     create_resources('burp::clientconf', $burp::server::clientconf_hash)
