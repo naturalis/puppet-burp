@@ -40,7 +40,7 @@ class burp::server (
     require => File['/etc/burp/clientconfdir']
   }
 
-  service { 'burp':
+  service { 'burp-server':
     ensure  => 'running',
     require => File['/etc/burp/burp-server.conf']
   }
