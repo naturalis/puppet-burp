@@ -88,8 +88,10 @@ ssl_peer_cn = burpserver
 # The server will override them if there is at least one 'include=' line on
 # the server side.
 # includes
+<% if !@excludes.nil? -%>
 <% [@includes].flatten.each do |include| -%>
 include=<%= include %>
+<% end -%>
 <% end -%>
 
 # excludes
@@ -137,8 +139,6 @@ nobackup = .nobackup
 exclude_comp=bz2
 exclude_comp=gz
 exclude_comp=zip
-exclude_comp=jpg
-exclude_comp=jpeg
 # When backing up, whether to enable O_NOATIME when opening files and
 # directories. The default is atime=0, which enables O_NOATIME.
 #atime=1
