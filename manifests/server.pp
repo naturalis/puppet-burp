@@ -7,10 +7,10 @@ class burp::server (
   $password             = $burp::client_password,
 ) {
 
-  file { '/etc/burp/clientconfdir':
-    ensure     => 'directory',
-    require    => Package['burp-server']
-  }
+  # file { '/etc/burp/clientconfdir':
+  #   ensure     => 'directory',
+  #   require    => Package['burp-server']
+  # }
 
   file { '/etc/burp/burp-server.conf':
     ensure  => present,
