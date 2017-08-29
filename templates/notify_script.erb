@@ -7,5 +7,5 @@ then
   cd /opt/storageanalytics/scripts
   # wait 5 minutes to make sure backup is finished and all locks are cleared
   sleep 300
-  python backup-burp-linux.py <%= scope['burp::directory'] %>/$1
+  python -m storage.backup.burp <%= scope['burp::directory'] %>/$1
 fi
