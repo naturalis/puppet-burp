@@ -25,11 +25,12 @@ class burp::clientpackage{
         server => 'keyserver.ubuntu.com'
     }
 
-    package { 'burp-client':
-      ensure   => latest,
-      install_options => ['--allow-unauthenticated', '-f'],
-      require  => Apt::Source['ziirish']
+    package { ['burp-client']:
+      ensure                => latest,
+      install_options       => ['--allow-unauthenticated', '-f'],
+      require               => Apt::Source['ziirish'],
     }
+
   }
   else {
     notice('Operatingsystem not supported, perform manual burp installation.')
