@@ -59,13 +59,13 @@ class burp (
 ) {
   file { $burp::burp_dirs:
     ensure  => 'directory',
+    owner   => 'root',
   }
-
 
   if $burp::mode == 'server' {
     include burp::serverpackage
     if $burp::chkbackup == true {
-        create_resources('burp::chkbackup', $burp::chkbackup_hash)
+      create_resources('burp::chkbackup', $burp::chkbackup_hash)
     }
     class {'burp::server':
       clientconf_hash       => $burp::clientconf_hash,
