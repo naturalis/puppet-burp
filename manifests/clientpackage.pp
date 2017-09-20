@@ -17,12 +17,14 @@ class burp::clientpackage{
       key      => {
         'id'     => '3F154A9DA875B6C613214D609EBCB6DB11260BA7',
         'server' => 'keyserver.ubuntu.com'
-      }
+      },
+      notify  => Exec['apt_update']
     }
 
     apt::key {'ziirish':
-        id     => '3F154A9DA875B6C613214D609EBCB6DB11260BA7',
-        server => 'keyserver.ubuntu.com'
+      id     => '3F154A9DA875B6C613214D609EBCB6DB11260BA7',
+      server => 'keyserver.ubuntu.com',
+      notify  => Exec['apt_update']
     }
 
     package { ['burp-client']:
