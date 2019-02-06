@@ -30,7 +30,7 @@ class burp::clientpackage{
     package { ['burp-client']:
       ensure                => latest,
       install_options       => ['--allow-unauthenticated', '-f'],
-      require               => Apt::Source['ziirish'],
+      require               => [Apt::Source['ziirish'],Exec['apt_update']]
     }
 
   }

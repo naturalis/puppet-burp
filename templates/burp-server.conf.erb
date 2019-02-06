@@ -1,16 +1,17 @@
 # This is an example cOBonfig file for the burp server.
 
 mode = server
-port = 4971
+listen = 0.0.0.0:4971
 # Think carefully before changing the status port address, as it can be used
 # to view the contents of backups.
-#status_address = 127.0.0.1
+
 # If you do not wish to run a status server at all, comment status_port out.
-status_port = 4972
+
+listen_status = 127.0.0.1:4972
 directory = <%= scope['burp::directory'] %>
 dedup_group = global
 clientconfdir = /etc/burp/clientconfdir
-status_address = 127.0.0.1
+
 # Choose the protocol to use.
 # 0 to decide automatically, 1 to force protocol1 mode (file level granularity
 # with a pseudo mirrored storage on the server and optional rsync). 2 forces
